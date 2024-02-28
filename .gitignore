@@ -5,3 +5,7 @@
 /src/res/sources/*.z80
 /src/res/sources/*.inc
 /bin/*.sav
+/bin/*.map
+/bin/*.sym
+/bin/*.gbc
+/bin/*.pocket
