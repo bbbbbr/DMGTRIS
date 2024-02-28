@@ -352,7 +352,7 @@ ApplyNext::
 ApplyHold::
     ; Do we have a piece to draw?
     cp a, PIECE_NONE
-    jr nz, .drawhold
+    ; jr nz, .drawhold
     ld a, TILE_BLANK
     ld [wSPRHold1+2], a
     ld [wSPRHold2+2], a
