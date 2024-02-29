@@ -650,8 +650,11 @@ GamePlayEventLoopHandlerB::
 
     ; Retry?
 .checkretry
-    ldh a, [hAState]
-    cp a, 10
+    ; Use START to Retry instead of A to avoid accidental restarts
+    ; ldh a, [hAState]
+    ; cp a, 10
+    ldh a, [hStartState]
+    cp a, 1  ; Duration of press required?
     jr nz, .noretry
     call CheckAndAddHiscore
     call RNGInit
@@ -670,8 +673,11 @@ GamePlayEventLoopHandlerB::
 
     ; Quit
 .noretry
-    ldh a, [hBState]
-    cp a, 10
+    ; Use SELECT to Quit instead of B to avoid accidental quits
+;    ldh a, [hBState]
+;    cp a, 10
+    ldh a, [hSelectState]
+    cp a, 1  ; Duration of press required?
     jp nz, .drawStaticInfo
     call CheckAndAddHiscore
     jp SwitchToTitle

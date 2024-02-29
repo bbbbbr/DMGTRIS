@@ -1012,8 +1012,15 @@ MainHandleDown:
 
 SettingsHandleA:
     ld a, [wSelected]
+
     cp a, TITLE_SETTINGS_SEL_BACK
-    jp nz, SettingsHandleRight
+    ; Don't use A/START for modifying menu entries
+    ; more ergonimic to just use arrow buttons since B is back not decrease
+    ; So no action if BACK menu item wasn't matched
+    ret nz
+    ; jp nz, SettingsHandleRight
+
+    ; matched TITLE_SETTINGS_SEL_BACK, return to title screen
     ld a, TITLE_MAIN
     jp SwitchTitleMode
 
@@ -1232,14 +1239,22 @@ SettingsHandleRight:
 
 ProfileHandleA:
     ld a, [wSelected]
+
     cp a, TITLE_PROFILE_SEL_BACK
     ld b, a
     ld a, TITLE_MAIN
     jp z, SwitchTitleMode
+
     ld a, b
     cp a, TITLE_PROFILE_SEL_RESET
     jp z, ResetProfile
-    jp ProfileHandleRight
+
+    ; Otherwise no action
+    ;
+    ; Don't use A/START for modifying menu entries
+    ; more ergonimic to just use arrow buttons since B is back not decrease
+    ret ; Return instead
+    ; jp ProfileHandleRight
 
 
 ProfileHandleRight:
